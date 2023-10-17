@@ -4,7 +4,7 @@ buildarch=8
 
 pkgbase=linux-ebu
 pkgver=6.0.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux'
 url="https://www.kernel.org/"
 arch=(aarch64)
@@ -80,7 +80,7 @@ package() {
 
   echo "Installing u-boot environment..."
   sed "s|%PKGVER%|${pkgver}|g" uboot.env |
-    install -Dm644 /dev/stdin -t "$pkgdir/boot/linux/$pkgver"
+    install -Dm644 /dev/stdin "$pkgdir/boot/linux/$pkgver/uboot.env"
 
   cd $_srcname
   local modulesdir="$pkgdir/usr/lib/modules/$(<version)"
