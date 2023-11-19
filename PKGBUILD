@@ -4,7 +4,7 @@ buildarch=8
 
 pkgbase=linux-ebu
 pkgver=6.5.9
-pkgrel=1
+pkgrel=3
 pkgdesc='Linux'
 url="https://www.kernel.org/"
 arch=(aarch64)
@@ -31,7 +31,7 @@ validpgpkeys=(
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256sums=('c6662f64713f56bf30e009c32eac15536fad5fd1c02e8a3daf62a0dc2f058fd5'
          'SKIP'
-         '4731bb6afc4310bec451d2f265b4f39be454453a35866a206d8d75e3c73d7f2b'
+         '19da02ff21cb46f4b6d6c3591a751cb2761ccfd3aa127cb73c38b5b7985a5f2e'
          '378e9652f075ac7c6a9eb6cfc2cd7986475a516878b045258cc235790c32d537'
          '6817ba045ca75e00a169c10c8a22d712a365c0ecded7403f3fc86db52459654d'
          '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
@@ -112,7 +112,7 @@ package() {
   install -Dm644 arch/arm64/boot/dts/marvell/armada-3720-espressobin-ultra.dtb "$pkgdir/boot/$pkgbase/fdt.dtb"
 
   # mkinitcpio looks for the kernel here
-  ln -s "$pkgdir/boot/$pkgbase/Image" "$pkgdir/boot/Image-$pkgbase" 
+  ln -s "$pkgbase/Image" "$pkgdir/boot/Image-$pkgbase"
 
   echo "Installing modules..."
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
