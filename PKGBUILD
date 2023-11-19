@@ -3,8 +3,8 @@
 buildarch=8
 
 pkgbase=linux-ebu
-pkgver=6.5.9
-pkgrel=3
+pkgver=6.6.1
+pkgrel=1
 pkgdesc='Linux'
 url="https://www.kernel.org/"
 arch=(aarch64)
@@ -29,7 +29,7 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('c6662f64713f56bf30e009c32eac15536fad5fd1c02e8a3daf62a0dc2f058fd5'
+sha256sums=('da1ed7d47c97ed72c9354091628740aa3c40a3c9cd7382871f3cedbd60588234'
          'SKIP'
          '19da02ff21cb46f4b6d6c3591a751cb2761ccfd3aa127cb73c38b5b7985a5f2e'
          '378e9652f075ac7c6a9eb6cfc2cd7986475a516878b045258cc235790c32d537'
@@ -117,8 +117,8 @@ package() {
   echo "Installing modules..."
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
 
-  # remove build and source links
-  rm "$modulesdir"/{source,build}
+  # remove build link
+  rm "$modulesdir"/build
 }
 
 pkgname=("$pkgbase")
