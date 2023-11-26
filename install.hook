@@ -8,4 +8,4 @@ Target = usr/lib/initcpio/*
 [Action]
 Description = Updating %PKGBASE% initramfs...
 When = PostTransaction
-Exec = /usr/share/libalpm/scripts/linux-ebu
+Exec = /usr/share/libalpm/scripts/%PKGBASE%

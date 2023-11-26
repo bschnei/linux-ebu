@@ -3,7 +3,7 @@
 buildarch=8
 
 pkgbase=linux-ebu
-pkgver=6.6.1
+pkgver=6.6.2
 pkgrel=1
 pkgdesc='Linux'
 url="https://www.kernel.org/"
@@ -21,21 +21,21 @@ source=(
   config
   u-boot.env
   install.hook
+  install.script
   remove.hook
-  linux-ebu.script
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('da1ed7d47c97ed72c9354091628740aa3c40a3c9cd7382871f3cedbd60588234'
+sha256sums=('73d4f6ad8dd6ac2a41ed52c2928898b7c3f2519ed5dbdb11920209a36999b77e'
          'SKIP'
-         '19da02ff21cb46f4b6d6c3591a751cb2761ccfd3aa127cb73c38b5b7985a5f2e'
+         '2732b49ee66e8827cbf566408c4007055bf1bcd5151c55f4232b29ed5eda4288'
          '378e9652f075ac7c6a9eb6cfc2cd7986475a516878b045258cc235790c32d537'
-         '6817ba045ca75e00a169c10c8a22d712a365c0ecded7403f3fc86db52459654d'
-         '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
+         'e26dcc0c8bc2341c9624dcd0368629fce641cb0665f6782a3765465bc893b75d'
          '028db5aa0264df7f785a1f7dc42c55958999d4d433e8677a767c51f91426afba'
+         '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
 )
 prepare() {
   cd $_srcname
@@ -104,7 +104,7 @@ package() {
   sed "${_subst}" ../install.hook |
     install -Dm644 /dev/stdin "$pkgdir/usr/share/libalpm/hooks/90-$pkgbase-install.hook"
 
-  sed "${_subst}" ../linux-ebu.script |
+  sed "${_subst}" ../install.script |
     install -Dm755 /dev/stdin "$pkgdir/usr/share/libalpm/scripts/$pkgbase"
 
   echo "Installing kernel image and device tree binary..."
