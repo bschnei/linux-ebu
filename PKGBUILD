@@ -4,7 +4,7 @@ buildarch=8
 
 pkgbase=linux-ebu
 pkgver=6.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux'
 url="https://www.kernel.org/"
 arch=(aarch64)
@@ -31,7 +31,7 @@ validpgpkeys=(
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256sums=('73d4f6ad8dd6ac2a41ed52c2928898b7c3f2519ed5dbdb11920209a36999b77e'
          'SKIP'
-         '2732b49ee66e8827cbf566408c4007055bf1bcd5151c55f4232b29ed5eda4288'
+         'f71cbe56629062344ccfb96ddabd201c297ed1451eba96b155cbfa54db91a104'
          '378e9652f075ac7c6a9eb6cfc2cd7986475a516878b045258cc235790c32d537'
          'e26dcc0c8bc2341c9624dcd0368629fce641cb0665f6782a3765465bc893b75d'
          '028db5aa0264df7f785a1f7dc42c55958999d4d433e8677a767c51f91426afba'
