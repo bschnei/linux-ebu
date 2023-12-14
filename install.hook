@@ -2,8 +2,14 @@
 Type = Path
 Operation = Install
 Operation = Upgrade
-Target = boot/%PKGBASE%/Image
+Target = boot/Image
 Target = usr/lib/initcpio/*
+
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = uboot-tools
 
 [Action]
 Description = Updating %PKGBASE% initramfs...

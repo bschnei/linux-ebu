@@ -3,9 +3,9 @@
 buildarch=8
 
 pkgbase=linux-ebu
-pkgver=6.6.2
-pkgrel=2
-pkgdesc='Linux'
+pkgver=6.6.5
+pkgrel=1
+pkgdesc='Linux for ESPRESSObin Ultra'
 url="https://www.kernel.org/"
 arch=(aarch64)
 license=(GPL2)
@@ -19,7 +19,6 @@ _srcname=linux-$pkgver
 source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   config
-  u-boot.env
   install.hook
   install.script
   remove.hook
@@ -29,13 +28,12 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('73d4f6ad8dd6ac2a41ed52c2928898b7c3f2519ed5dbdb11920209a36999b77e'
+sha256sums=('7c92795854a68d218c576097d50611f8eea86fd55810e0bc27724f020753b19e'
          'SKIP'
-         'f71cbe56629062344ccfb96ddabd201c297ed1451eba96b155cbfa54db91a104'
-         '378e9652f075ac7c6a9eb6cfc2cd7986475a516878b045258cc235790c32d537'
-         'e26dcc0c8bc2341c9624dcd0368629fce641cb0665f6782a3765465bc893b75d'
-         '028db5aa0264df7f785a1f7dc42c55958999d4d433e8677a767c51f91426afba'
-         '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
+         '7dc647385ef9c011c2246c506e89f76f450f6ad391b2657ef63d6e0889901e38'
+         '0db0ba677d1acabae3ae444dcbd8b88f88add0e5d2a77a9d53fe7be0f10d8425'
+         '9c87dbf165d13879b8c9f4875d87b4122ea765d1833c3511a44fec28a73cddfc'
+         'f83e9851133d98814b7ca5fa1e3f66ec191c57bebfd73f9db60da7530da0f992'
 )
 prepare() {
   cd $_srcname
@@ -78,8 +76,8 @@ package() {
     uboot-tools
   )
   optdepends=(
+    'linux-firmware-marvell: wifi driver'
     'wireless-regdb: to set the correct wireless channels of your country'
-    'linux-firmware: firmware images needed for some devices'
   )
   provides=(WIREGUARD-MODULE)
 
@@ -93,10 +91,6 @@ package() {
     s|%KERNVER%|${kernver}|g
   "
 
-  echo "Installing u-boot environment..."
-  sed "${_subst}" ../u-boot.env |
-    install -Dm644 /dev/stdin "$pkgdir/boot/$pkgbase/u-boot.env"
-
   echo "Installing pacman hooks for initramfs generation..."
   sed "${_subst}" ../remove.hook |
     install -Dm644 /dev/stdin "$pkgdir/usr/share/libalpm/hooks/60-$pkgbase-remove.hook"
@@ -107,12 +101,9 @@ package() {
   sed "${_subst}" ../install.script |
     install -Dm755 /dev/stdin "$pkgdir/usr/share/libalpm/scripts/$pkgbase"
 
-  echo "Installing kernel image and device tree binary..."
-  install -Dm644 arch/arm64/boot/Image -t "$pkgdir/boot/$pkgbase"
-  install -Dm644 arch/arm64/boot/dts/marvell/armada-3720-espressobin-ultra.dtb "$pkgdir/boot/$pkgbase/fdt.dtb"
-
-  # mkinitcpio looks for the kernel here
-  ln -s "$pkgbase/Image" "$pkgdir/boot/Image-$pkgbase"
+  echo "Installing boot image and device tree blobs..."
+  install -Dm644 arch/arm64/boot/Image -t "$pkgdir/boot"
+  make INSTALL_PATH="$pkgdir/boot" dtbs_install
 
   echo "Installing modules..."
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
