@@ -3,7 +3,7 @@
 buildarch=8
 
 pkgbase=linux-ebu
-pkgver=6.6.7
+pkgver=6.6.11
 pkgrel=1
 pkgdesc='Linux for Globalscale ESPRESSObin Ultra'
 url="https://www.kernel.org/"
@@ -28,9 +28,9 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('0ce68ec6019019140043263520955ecd04839e55a1baab2fa9155b42bb6fd841'
+sha256sums=('afe2e5a661bb886d762684ebea71607d1ee8cb9dd100279d2810ba20d9671e52'
          'SKIP'
-         'e364434063b0bb60e670e453f02d1bb92b67cd70b235a53b9b59f92213ad21f4'
+         'd6233f5df160edf732180ee6c75546cd1688e4122f8203288b4da5076f7de666'
          '0db0ba677d1acabae3ae444dcbd8b88f88add0e5d2a77a9d53fe7be0f10d8425'
          '9c87dbf165d13879b8c9f4875d87b4122ea765d1833c3511a44fec28a73cddfc'
          'f83e9851133d98814b7ca5fa1e3f66ec191c57bebfd73f9db60da7530da0f992'
