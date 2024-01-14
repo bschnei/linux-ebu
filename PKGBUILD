@@ -4,7 +4,7 @@ buildarch=8
 
 pkgbase=linux-ebu
 pkgver=6.6.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux for Globalscale ESPRESSObin Ultra'
 url="https://www.kernel.org/"
 arch=(aarch64)
@@ -22,6 +22,7 @@ source=(
   install.hook
   install.script
   remove.hook
+  cpufreq.patch
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -34,6 +35,7 @@ sha256sums=('afe2e5a661bb886d762684ebea71607d1ee8cb9dd100279d2810ba20d9671e52'
          '0db0ba677d1acabae3ae444dcbd8b88f88add0e5d2a77a9d53fe7be0f10d8425'
          '9c87dbf165d13879b8c9f4875d87b4122ea765d1833c3511a44fec28a73cddfc'
          'f83e9851133d98814b7ca5fa1e3f66ec191c57bebfd73f9db60da7530da0f992'
+         'f058667bd7bf1253cdac131138c9005dae0bded66ffb3922bb6802d08c18f46f'
 )
 prepare() {
   cd $_srcname
