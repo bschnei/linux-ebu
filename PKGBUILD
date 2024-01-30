@@ -3,9 +3,9 @@
 buildarch=8
 
 pkgbase=linux-ebu
-pkgver=6.6.11
-pkgrel=2
-pkgdesc='Linux for Globalscale ESPRESSObin Ultra'
+pkgver=6.7.2
+pkgrel=1
+pkgdesc='Linux for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
 url="https://www.kernel.org/"
 arch=(aarch64)
 license=(GPL2)
@@ -29,12 +29,12 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('afe2e5a661bb886d762684ebea71607d1ee8cb9dd100279d2810ba20d9671e52'
+sha256sums=('c34de41baa29c475c0834e88a3171e255ff86cd32d83c6bffc2b797e60bfa671'
          'SKIP'
-         'd6233f5df160edf732180ee6c75546cd1688e4122f8203288b4da5076f7de666'
-         '0db0ba677d1acabae3ae444dcbd8b88f88add0e5d2a77a9d53fe7be0f10d8425'
-         '9c87dbf165d13879b8c9f4875d87b4122ea765d1833c3511a44fec28a73cddfc'
-         'f83e9851133d98814b7ca5fa1e3f66ec191c57bebfd73f9db60da7530da0f992'
+         '816a9662954c6710cc64431566c0715b5a35b92d7e2afbc9b9b1b6ac6ac11aae'
+         'ce1f3e11c73246eea9cd7652d4ba1713ca3670a981c0917879ecfe7314a8fd68'
+         'e9e6f62cdb77c8857341458884bfe45d5d37923540e7995ef903884d3793d8e9'
+         '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
          'f058667bd7bf1253cdac131138c9005dae0bded66ffb3922bb6802d08c18f46f'
 )
 prepare() {
@@ -73,12 +73,12 @@ package() {
   pkgdesc="The $pkgdesc kernel and modules"
   depends=(
     coreutils
-    initramfs
     kmod
+    mkinitcpio
     uboot-tools
   )
   optdepends=(
-    'linux-firmware-marvell: wifi driver'
+    'linux-firmware-marvell: wifi and bluetooth driver (mwifiex)'
     'wireless-regdb: to set the correct wireless channels of your country'
   )
   provides=(WIREGUARD-MODULE)
@@ -103,9 +103,9 @@ package() {
   sed "${_subst}" ../install.script |
     install -Dm755 /dev/stdin "$pkgdir/usr/share/libalpm/scripts/$pkgbase"
 
-  echo "Installing boot image and device tree blobs..."
-  install -Dm644 arch/arm64/boot/Image -t "$pkgdir/boot"
-  make INSTALL_PATH="$pkgdir/boot" dtbs_install
+  echo "Installing boot image and device tree..."
+  install -Dm644 arch/arm64/boot/Image -t "$pkgdir/boot/$pkgbase"
+  install -Dm644 arch/arm64/boot/dts/marvell/armada-3720-espressobin-ultra.dtb "$pkgdir/boot/$pkgbase/fdt.dtb"
 
   echo "Installing modules..."
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install

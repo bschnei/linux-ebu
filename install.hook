@@ -2,7 +2,7 @@
 Type = Path
 Operation = Install
 Operation = Upgrade
-Target = boot/Image
+Target = boot/%PKGBASE%/Image
 Target = usr/lib/initcpio/*
 
 [Trigger]

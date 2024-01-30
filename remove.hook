@@ -6,4 +6,4 @@ Target = %PKGBASE%
 [Action]
 Description = Removing %PKGBASE% initramfs...
 When = PreTransaction
-Exec = /usr/bin/rm -f /boot/ramfs.img
+Exec = /usr/bin/rm -f /boot/%PKGBASE%/ramfs.img

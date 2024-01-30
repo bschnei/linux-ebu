@@ -2,6 +2,6 @@
 
 # generate u-boot compatible initramfs
 tmpfile=$(mktemp)
-mkinitcpio --generate "${tmpfile}" --kernel %KERNVER%
-mkimage -n "Ramdisk Image" -A arm64 -O linux -T ramdisk -C none -d "${tmpfile}" /boot/ramfs.img
+mkinitcpio --generate "${tmpfile}" --kernel /boot/%PKGBASE%/Image --skiphooks consolefont
+mkimage -n "Ramdisk Image" -A arm64 -O linux -T ramdisk -C none -d "${tmpfile}" /boot/%PKGBASE%/ramfs.img
 rm "${tmpfile}"
