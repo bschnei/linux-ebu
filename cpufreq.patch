@@ -1,9 +1,13 @@
---- a/drivers/cpufreq/armada-37xx-cpufreq.c	2024-01-13 21:45:22.923539098 -0800
-+++ b/drivers/cpufreq/armada-37xx-cpufreq.c	2024-01-13 21:46:55.193294339 -0800
-@@ -106,7 +106,7 @@
- 	 * The cpufreq scaling for 1.2 GHz variant of the SOC is currently
- 	 * unstable because we do not know how to configure it properly.
- 	 */
+--- a/drivers/cpufreq/armada-37xx-cpufreq.c	2024-01-30 16:01:18.500000000 -0800
++++ b/drivers/cpufreq/armada-37xx-cpufreq.c	2024-01-30 16:02:46.090000000 -0800
+@@ -102,11 +102,7 @@
+ };
+ 
+ static struct armada_37xx_dvfs armada_37xx_dvfs[] = {
+-	/*
+-	 * The cpufreq scaling for 1.2 GHz variant of the SOC is currently
+-	 * unstable because we do not know how to configure it properly.
+-	 */
 -	/* {.cpu_freq_max = 1200*1000*1000, .divider = {1, 2, 4, 6} }, */
 +	{.cpu_freq_max = 1200*1000*1000, .divider = {1, 2, 4, 6} },
  	{.cpu_freq_max = 1000*1000*1000, .divider = {1, 2, 4, 5} },

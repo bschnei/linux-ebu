@@ -2,13 +2,13 @@
 
 buildarch=8
 
-pkgbase=linux-ebu
+pkgname=linux-ebu
 pkgver=6.7.2
-pkgrel=1
-pkgdesc='Linux for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
-url="https://www.kernel.org/"
+pkgrel=2
+pkgdesc='Kernel and modules for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
 arch=(aarch64)
-license=(GPL2)
+url='https://www.kernel.org/'
+license=('GPL-2.0 WITH Linux-syscall-note')
 makedepends=(
   bc
   tar
@@ -35,7 +35,7 @@ sha256sums=('c34de41baa29c475c0834e88a3171e255ff86cd32d83c6bffc2b797e60bfa671'
          'ce1f3e11c73246eea9cd7652d4ba1713ca3670a981c0917879ecfe7314a8fd68'
          'e9e6f62cdb77c8857341458884bfe45d5d37923540e7995ef903884d3793d8e9'
          '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
-         'f058667bd7bf1253cdac131138c9005dae0bded66ffb3922bb6802d08c18f46f'
+         'a1514b9bf05a2b25a2737971f034feb2ec650e8c9b102afac0f3c47080267e46'
 )
 prepare() {
   cd $_srcname
@@ -70,7 +70,7 @@ build() {
 }
 
 package() {
-  pkgdesc="The $pkgdesc kernel and modules"
+  pkgdesc="$pkgdesc"
   depends=(
     coreutils
     kmod
@@ -113,5 +113,3 @@ package() {
   # remove build link
   rm "$modulesdir"/build
 }
-
-pkgname=("$pkgbase")
