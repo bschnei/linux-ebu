@@ -4,6 +4,6 @@ Operation = Remove
 Target = %PKGBASE%
 
 [Action]
-Description = Removing %PKGBASE% initramfs...
+Description = Remvoing systemd-boot entry for %PKGBASE%...
 When = PreTransaction
-Exec = /usr/bin/rm -f /boot/%PKGBASE%/ramfs.img
+Exec = /usr/bin/kernel-install remove %KERNVER%

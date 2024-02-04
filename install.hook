@@ -1,17 +1,10 @@
 [Trigger]
-Type = Path
-Operation = Install
-Operation = Upgrade
-Target = boot/%PKGBASE%/Image
-Target = usr/lib/initcpio/*
-
-[Trigger]
 Type = Package
 Operation = Install
 Operation = Upgrade
-Target = uboot-tools
+Target = %PKGBASE%
 
 [Action]
-Description = Updating %PKGBASE% initramfs...
+Description = Updating systemd-boot entry for %PKGBASE%...
 When = PostTransaction
-Exec = /usr/share/libalpm/scripts/%PKGBASE%
+Exec = /usr/bin/kernel-install add %KERNVER% /usr/lib/modules/%KERNVER%/Image

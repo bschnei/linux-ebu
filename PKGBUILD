@@ -4,7 +4,7 @@ buildarch=8
 
 pkgname=linux-ebu
 pkgver=6.7.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Kernel and modules for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
 arch=(aarch64)
 url='https://www.kernel.org/'
@@ -20,7 +20,6 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   config
   install.hook
-  install.script
   remove.hook
   cpufreq.patch
 )
@@ -30,12 +29,11 @@ validpgpkeys=(
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256sums=('c34de41baa29c475c0834e88a3171e255ff86cd32d83c6bffc2b797e60bfa671'
-         'SKIP'
-         '816a9662954c6710cc64431566c0715b5a35b92d7e2afbc9b9b1b6ac6ac11aae'
-         'ce1f3e11c73246eea9cd7652d4ba1713ca3670a981c0917879ecfe7314a8fd68'
-         'e9e6f62cdb77c8857341458884bfe45d5d37923540e7995ef903884d3793d8e9'
-         '4a0e2369200298f62296eeee026cc46743998877443c642c2823990bf0662552'
-         'a1514b9bf05a2b25a2737971f034feb2ec650e8c9b102afac0f3c47080267e46'
+            'SKIP'
+            '806d8e34d2acb95b75015ac759b1faa36d6e663e27026cf259f89c89f6eedefd'
+            'c37a4958001d7445b72314db88ac0367be379bdfb33741a12718cdb70d0c5124'
+            '1e5135b6a0dcbb33b28b3b05e10378f81a88d98dce7a2e002fe86a9f2f42b976'
+            'a1514b9bf05a2b25a2737971f034feb2ec650e8c9b102afac0f3c47080267e46'
 )
 prepare() {
   cd $_srcname
@@ -66,7 +64,7 @@ build() {
   cd ${_srcname}
 
   unset LDFLAGS
-  make ${MAKEFLAGS} Image modules dtbs
+  make ${MAKEFLAGS} Image modules
 }
 
 package() {
@@ -74,8 +72,6 @@ package() {
   depends=(
     coreutils
     kmod
-    mkinitcpio
-    uboot-tools
   )
   optdepends=(
     'linux-firmware-marvell: wifi and bluetooth driver (mwifiex)'
@@ -93,19 +89,15 @@ package() {
     s|%KERNVER%|${kernver}|g
   "
 
-  echo "Installing pacman hooks for initramfs generation..."
+  echo "Installing systemd-boot hooks..."
   sed "${_subst}" ../remove.hook |
     install -Dm644 /dev/stdin "$pkgdir/usr/share/libalpm/hooks/60-$pkgbase-remove.hook"
 
   sed "${_subst}" ../install.hook |
     install -Dm644 /dev/stdin "$pkgdir/usr/share/libalpm/hooks/90-$pkgbase-install.hook"
 
-  sed "${_subst}" ../install.script |
-    install -Dm755 /dev/stdin "$pkgdir/usr/share/libalpm/scripts/$pkgbase"
-
-  echo "Installing boot image and device tree..."
-  install -Dm644 arch/arm64/boot/Image -t "$pkgdir/boot/$pkgbase"
-  install -Dm644 arch/arm64/boot/dts/marvell/armada-3720-espressobin-ultra.dtb "$pkgdir/boot/$pkgbase/fdt.dtb"
+  echo "Installing boot image..."
+  install -Dm644 arch/arm64/boot/Image -t "$modulesdir"
 
   echo "Installing modules..."
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
