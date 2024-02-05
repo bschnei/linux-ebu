@@ -1,9 +1,0 @@
-[Trigger]
-Type = Package
-Operation = Remove
-Target = %PKGBASE%
-
-[Action]
-Description = Remvoing systemd-boot entry for %PKGBASE%...
-When = PreTransaction
-Exec = /usr/bin/kernel-install remove %KERNVER%

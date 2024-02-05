@@ -1,0 +1,12 @@
+post_install() {
+  kernel-install add "${1}-ebu" "/usr/lib/modules/${1}-ebu/Image"
+}
+
+post_upgrade() {
+  kernel-install remove "${2}-ebu"
+  kernel-install add "${1}-ebu" "/usr/lib/modules/${1}-ebu/Image"
+}
+
+post_remove() {
+  kernel-install remove "${1}-ebu"
+}
