@@ -4,7 +4,7 @@ buildarch=8
 
 pkgname=linux-ebu
 pkgver=6.7.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Kernel and modules for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
 arch=(aarch64)
 url='https://www.kernel.org/'
