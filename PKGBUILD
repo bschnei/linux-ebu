@@ -3,7 +3,7 @@
 buildarch=8
 
 pkgname=linux-ebu
-pkgver=6.7.8
+pkgver=6.7.9
 pkgrel=1
 pkgdesc='Kernel and modules for Globalscale ESPRESSObin Ultra (Marvell Armada A3720 SoC)'
 arch=(aarch64)
@@ -27,9 +27,9 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('469ff46b98685df13b56c98417c64ba7a30f8a45baf34aa99f07935e1bf65c18'
+sha256sums=('0fd733fc0778f8da1fdf66df1698d394248807de71eef83a4d1218bcb3dfd346'
             'SKIP'
-            '964b7336d9be17940d998548fe42ca28e1c4951c1953a1d3fd292572474edb06'
+            'd7f5ba7400547121e8000f55a928c27d18508df48193943d99c6eedcd4b5a16a'
             'a1514b9bf05a2b25a2737971f034feb2ec650e8c9b102afac0f3c47080267e46')
 prepare() {
   cd $_srcname
